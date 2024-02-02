@@ -13,23 +13,25 @@ export default function UserMain() {
         <>
             <Header role={role} path={path.pathname} />
             <div className="requestsList">
-            {
-            requests.map(e => (
-                <div className="req">
-                    <div className="numReq">
-                        <h2>Заявка №</h2>
-                    </div>
-                    <div className="aboutReq">
-                        <div className="imgReq">
-                            <img src="" alt="" />
+                {
+                    requests.map(e => (
+                        <div className="req">
+                            <div className="numReq">
+                                <h2>Заявка №</h2>
+                            </div>
+                            <div className="aboutReq">
+                                <div className="imgReq">
+                                    <img src="" alt="" />
+                                </div>
+                                <div className="textReq">
+                                    <div>
+                                        <h4></h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="textReq">
-                            
-                        </div>
-                    </div>
-                </div>
-            ))
-            }
+                    ))
+                }
             </div>
         </>
     )
