@@ -3,9 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 const initialState = {
     loading: false,
     message: undefined,
-    token: localStorage.getItem('token'),
-    roleid: localStorage.getItem('roleId'),
-    id: localStorage.getItem('id'),
     error: undefined
 }
 
@@ -26,28 +23,20 @@ export const regSlice = createSlice({
         builder.addCase(regThunk.fulfilled, (state, action) => {
             const payload = action.payload
 
-            state.token = payload.token
-            state.roleid = payload.user.roleid
-            state.id = payload.user.id
-
-            localStorage.setItem('token', payload.token)
-            localStorage.setItem('roleId', payload.user.roleid)
-            localStorage.setItem('id', payload.user.id)
-
-            state.error = undefined
+            state.message = payload.message
             state.loading = false
         })
         builder.addCase(regThunk.rejected, (state, action) => {
             const payload = action.payload
 
-            state.error = payload.message
+            state.error = payload
             state.loading = false
         })
     }
 })
 
 export const regThunk = createAsyncThunk('regThunk', async (data, { rejectWithValue }) => {
-    const { nick, phone, password } = data
+    // const { nick, phone, password } = data
 
     try {
         const result = await fetch('http://localhost:5000/reg', {
@@ -65,7 +54,7 @@ export const regThunk = createAsyncThunk('regThunk', async (data, { rejectWithVa
         return json
     } catch (error) {
         console.log(error);
-        return rejectWithValue(error)
+        return rejectWithValue("Что-то не так")
     }
 })
 

@@ -3,6 +3,9 @@ import { useSelector } from "react-redux"
 import Authorization from "./auth/Auth"
 import Registration from "./reg/Reg"
 import UserMain from './user/Main'
+import NewReq from './user/NewReq'
+import Account from './user/Account'
+import RedAcc from './user/RedAcc'
 
 const router = createBrowserRouter([
   {
@@ -30,15 +33,15 @@ const authRouter = createBrowserRouter([
   },
   {
     path: '/myAccount',
-    element: <>user account</>
+    element: <Account />
   },
   {
     path: '/redactAccount',
-    element: <>reduser account</>
+    element: <RedAcc />
   },
   {
     path: '/newRequest',
-    element: <>newRequest</>
+    element: <NewReq />
   },
   {
     path: '*',
@@ -53,7 +56,7 @@ const authRouterAdmin = createBrowserRouter([
   },
   {
     path: '/myAccount',
-    element: <>admin account</>
+    element: <RedAcc />
   },
   {
     path: '*',

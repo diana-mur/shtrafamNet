@@ -1,15 +1,4 @@
-import { useSelector } from "react-redux";
-import Header from "../elements/header.jsx";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
-
-export default function UserMain() {
-    const role = useSelector((state) => state.auth.roleid)
-
-    const path = useLocation()
-
-    const [requests, setRequests] = useState([])
-
+export default function MainAdmin() {
     return (
         <>
             <Header role={role} path={path.pathname} />
@@ -39,7 +28,10 @@ export default function UserMain() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="statusReq">{e.status}</div>
+                            <div className="buttonsReq">
+                                <button className="green">Принять</button>
+                                <button className="red">Отклонить</button>
+                            </div>
                         </div>
                     ))
                 }

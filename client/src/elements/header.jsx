@@ -19,7 +19,7 @@ function Header({ role, path }) {
                             <Link to={'/newRequest'}
                             className={path == "/newRequest" ? "location" : ''}>Создать заявку</Link>
                             <Link to={'/myAccount'}
-                            className={path == "/myAccount" ? "location" : ''}>Профиль</Link>
+                            className={path == "/myAccount" || path == "/redactAccount" ? "location" : ''}>Профиль</Link>
                         </nav>
                         :
                         <nav>

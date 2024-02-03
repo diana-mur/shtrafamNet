@@ -14,7 +14,7 @@ export const authSlice = createSlice({
     reducers: {
         logOut: (state) => {
             state.error = undefined
-            state.loading = true
+            state.loading = false
             state.id = undefined
             state.roleid = undefined
             state.token = undefined

@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { regThunk } from '../redux/regSlice.js'
 import Header from '../elements/header.jsx'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 function Registration() {
   const [phone, setPhone] = useState('')
@@ -13,6 +13,13 @@ function Registration() {
   const dispatch = useDispatch()
 
   const path = useLocation()
+  const nav = useNavigate()
+
+    useEffect(() => {
+        if (regState.message) {
+            nav('/auth')
+        }
+    }, [regState])
 
   return (
     regState.loading ? <p>Loading...</p> :
