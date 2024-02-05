@@ -13,7 +13,7 @@ export const reg = async (req, res) => {
         })
     } else {
         const hashPassword = bcrypt.hashSync(password, 7)
-        const user = await sql`insert into Users (nick, roleId, phone, password) values (${nick}, 1, ${phone}, ${hashPassword})`
+        const user = await sql`insert into Users (nick, roleId, phone, password) values (${nick}, 1, ${phone}, ${hashPassword}) RETURNING *`
         const token = generateAccessToken(user.id, user.role)
         res.send({ message: "Пользователь успешно зарегистрирован", user: user, token: token })
     }

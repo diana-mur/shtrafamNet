@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken"
 
 export const roleMiddleware = (roles) => {
     return (req, res, next) => {
-        if (req.method === "OPTIONS") next()
+        if (req.method == "OPTIONS") next()
+            console.log(req.headers);
 
         try {
             const token = req.headers.authorization.split(' ')[1]

@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import Authorization from "./auth/Auth"
 import Registration from "./reg/Reg"
@@ -6,19 +6,27 @@ import UserMain from './user/Main'
 import NewReq from './user/NewReq'
 import Account from './user/Account'
 import RedAcc from './user/RedAcc'
+import MainAdmin from './admin/MainAdmin'
+import Header from './elements/header'
+import "./index.css"
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/reg" />
-  },
-  {
-    path: '/auth',
-    element: <Authorization />
-  },
-  {
-    path: '/reg',
-    element: <Registration />
+    element: <>
+      <Header />
+      <Outlet />
+    </>,
+    children: [
+      {
+        path: '/reg',
+        element: <Registration />
+      },
+      {
+        path: '/auth',
+        element: <Authorization />
+      },
+    ]
   },
   {
     path: '*',
@@ -29,19 +37,28 @@ const router = createBrowserRouter([
 const authRouter = createBrowserRouter([
   {
     path: '/',
-    element: <UserMain />
-  },
-  {
-    path: '/myAccount',
-    element: <Account />
-  },
-  {
-    path: '/redactAccount',
-    element: <RedAcc />
-  },
-  {
-    path: '/newRequest',
-    element: <NewReq />
+    element: <>
+      <Header />
+      <Outlet />
+    </>,
+    children: [
+      {
+        path: '/',
+        element: <UserMain />
+      },
+      {
+        path: '/myAccount',
+        element: <Account />
+      },
+      {
+        path: '/redactAccount',
+        element: <RedAcc />
+      },
+      {
+        path: '/newRequest',
+        element: <NewReq />
+      },
+    ]
   },
   {
     path: '*',
@@ -51,12 +68,25 @@ const authRouter = createBrowserRouter([
 
 const authRouterAdmin = createBrowserRouter([
   {
-    path: '/admin',
-    element: <>admin</>
-  },
-  {
-    path: '/myAccount',
-    element: <RedAcc />
+    path: '/',
+    element: <>
+      <Header />
+      <Outlet />
+    </>,
+    children: [
+      {
+        path: '/admin',
+        element: <MainAdmin />
+      },
+      {
+        path: '/myAccount',
+        element: <Account />
+      },
+      {
+        path: '/redactAccount',
+        element: <RedAcc />
+      },
+    ]
   },
   {
     path: '*',
@@ -65,16 +95,15 @@ const authRouterAdmin = createBrowserRouter([
 ])
 
 function App() {
-  // dispetch(reset(12345678)) // попадут в action из регистрации
   const token = useSelector((state) => state.auth.token)
   const role = useSelector((state) => state.auth.roleid)
   const id = useSelector((state) => state.auth.id)
 
-  console.log({token, role, id})
+  console.log({ token, role, id })
 
   return (
     token ?
-      role === 'ADMIN' ?
+      role == 2 ?
         <RouterProvider router={authRouterAdmin} /> :
         <RouterProvider router={authRouter} /> :
       <RouterProvider router={router} />

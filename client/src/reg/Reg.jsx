@@ -10,40 +10,39 @@ function Registration() {
   const [nick, setNick] = useState('')
 
   const regState = useSelector((state) => state.reg)
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
   const path = useLocation()
   const nav = useNavigate()
 
-    useEffect(() => {
-        if (regState.message) {
-            nav('/auth')
-        }
-    }, [regState])
+  useEffect(() => {
+    if (regState.message) {
+      nav('/auth')
+    }
+  }, [regState])
 
   return (
     regState.loading ? <p>Loading...</p> :
-    <>
-      <div className="formIn">
-        <Header role={undefined} path={path.pathname} />
-        <h1>Регистрация</h1>
-        <form>
+      <>
+        <div className="mainDiv">
+          <form>
+            <h1>Регистрация</h1>
             <input type="text" placeholder='Короткое имя (никнейм)' value={nick} onChange={e => setNick(e.target.value)} />
             <input type="text" placeholder='Телефон' value={phone} onChange={e => setPhone(e.target.value)} />
             <input type="password" placeholder='Пароль' value={password} onChange={e => setPassword(e.target.value)} />
-          <button onClick={() => {
-            dispatch(regThunk({
-              nick: nick,
-              phone: phone,
-              password: password
-            }))
-          }}>Зарегистрироваться</button>
-        </form>
-        {
-          regState.error ? <p>{regState.error}</p> : <></>
-        }
-      </div>
-    </>
+            <button className='btn' onClick={() => {
+              dispatch(regThunk({
+                nick: nick,
+                phone: phone,
+                password: password
+              }))
+            }}>Зарегистрироваться</button>
+          </form>
+          {
+            regState.error ? <p>{regState.error}</p> : <></>
+          }
+        </div>
+      </>
   )
 }
 

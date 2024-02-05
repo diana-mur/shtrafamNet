@@ -16,13 +16,13 @@ function Authorization() {
   return (
     authState.loading ? <p>Loading...</p> :
       <>
-      <Header role={undefined} path={path.pathname} />
-        <div className="formIn">
-          <h1>Авторизация</h1>
+        {/* <Header role={undefined} path={path.pathname} /> */}
+        <div className="mainDiv">
           <form>
+            <h1>Авторизация</h1>
             <input type="text" placeholder='Номер телефона' value={phone} onChange={e => setPhone(e.target.value)} />
             <input type="password" placeholder='Пароль' value={password} onChange={e => setPassword(e.target.value)} />
-            <button onClick={() => {
+            <button className='btn' onClick={() => {
               dispatch(authThunk({
                 phone: phone,
                 password: password

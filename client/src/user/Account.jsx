@@ -1,35 +1,42 @@
 import { Link, useLocation } from "react-router-dom";
 import Header from "../elements/header";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logOut } from "../redux/authSlice";
 
 export default function Account() {
     const role = useSelector((state) => state.auth.roleid)
+    const id = useSelector((state) => state.auth.id)
     const path = useLocation()
-    const [nick, setNick] = useState('')
-    const [phone, setPhone] = useState('')
+    const [info, setInfo] = useState([])
 
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/profile/${id}`)
+            .then(res => res.json())
+            .then(json => setInfo(json))
+    }, [id])
+
     return (
         <>
-            <Header role={role} path={path.pathname} />
-            <h1>Профиль</h1>
-            <div className="aboutAcc">
-                <div>
-                    <h4>Ник: </h4>
-                    <p>{nick}</p>
+            <div className="mainDiv">
+                <h1>Профиль</h1>
+                <div className="aboutAcc">
+                    <div className="infoAcc">
+                        <h4>Ник: </h4>
+                        <p>{info[0]?.nick}</p>
+                    </div>
+                    <div className="infoAcc">
+                        <h4>Номер телефона: </h4>
+                        <p>{info[0]?.phone}</p>
+                    </div>
                 </div>
-                <div>
-                    <h4>Номер телефона: </h4>
-                    <p>{phone}</p>
-                </div>
+                <Link to={"/redactAccount"} className="redactAcc">Редактировать данные</Link>
+                <button className="btn" onClick={() => {
+                    dispatch(logOut())
+                }}>Выйти</button>
             </div>
-            <Link to={"/redactAccount"}>Редактировать данные</Link>
-            <button onClick={() => {
-                dispatch(logOut())
-            }}>Выйти</button>
         </>
     )
 }

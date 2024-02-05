@@ -12,7 +12,7 @@ export const auth = async (req, res) => {
     if (!validPassword) {
         return res.status(400).json({ message: `Введенный пароль неверный` })
     }
-    const token = generateAccessToken(user[0].id, user[0].role)
+    const token = generateAccessToken(user[0].id, user[0].roleid)
     return res.json({
         token: token,
         user: user[0]
