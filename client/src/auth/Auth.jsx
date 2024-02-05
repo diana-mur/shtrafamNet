@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { authThunk } from '../redux/authSlice.js'
-import Header from '../elements/header.jsx'
 import { useLocation } from 'react-router-dom'
 
 function Authorization() {

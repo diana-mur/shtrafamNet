@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { regThunk } from '../redux/regSlice.js'
-import Header from '../elements/header.jsx'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 function Registration() {

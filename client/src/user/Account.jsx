@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import Header from "../elements/header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { logOut } from "../redux/authSlice";
